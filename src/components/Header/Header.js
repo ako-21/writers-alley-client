@@ -1,6 +1,8 @@
 import React, { Fragment } from 'react'
 import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
+import Logo from './../../images/headerLogo.png'
+import Button from 'react-bootstrap/Button'
 
 const authenticatedOptions = (
   <Fragment>
@@ -11,27 +13,27 @@ const authenticatedOptions = (
 
 const unauthenticatedOptions = (
   <Fragment>
-    <Nav.Link href="#sign-up">Sign Up</Nav.Link>
-    <Nav.Link href="#sign-in">Sign In</Nav.Link>
+    <Button href="#sign-up" size="sm" className="header-font mr-3 sign-up-button">Sign Up</Button>
+    <Button href="#sign-in" variant="outline-white" size="sm" className="mr-5 header-font">Sign In</Button>
   </Fragment>
 )
 
-const alwaysOptions = (
-  <Fragment>
-    <Nav.Link to="/">Home</Nav.Link>
-  </Fragment>
-)
+// const alwaysOptions = (
+//   <Fragment>
+//     <Nav.Link to="/">Home</Nav.Link>
+//   </Fragment>
+// )
 
 const Header = ({ user }) => (
-  <Navbar bg="primary" variant="dark" expand="md">
+  <Navbar bg="transparent" variant="dark" expand="md">
     <Navbar.Brand href="#">
-      react-auth-template
+      <img src={Logo} alt="logo" className="logo ml-5" />
     </Navbar.Brand>
     <Navbar.Toggle aria-controls="basic-navbar-nav" />
     <Navbar.Collapse id="basic-navbar-nav">
       <Nav className="ml-auto">
         { user && <span className="navbar-text mr-2">Welcome, {user.email}</span>}
-        { alwaysOptions }
+        {/*    { alwaysOptions } */}
         { user ? authenticatedOptions : unauthenticatedOptions }
       </Nav>
     </Navbar.Collapse>

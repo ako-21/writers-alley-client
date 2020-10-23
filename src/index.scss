@@ -1,1 +1,79 @@
 @import '~bootstrap/scss/bootstrap';
+
+
+$theme-colors: (
+  'charc': #00000080,
+  'white': #fff,
+  'secondary': #fcba08,
+  'primary': #6593f5,
+  'transparent': #ffffff00
+);
+
+body {
+  background-attachment: fixed;
+  background-image: url('./images/home-page-bg.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.sign-up-button {
+  background-color: #ffffff00 !important;
+  border: none !important;
+  color: #fff
+}
+
+.heading-div {
+  margin-top: 10rem;
+}
+
+.home-page-heading {
+  color: #fff;
+  text-shadow: 2px 6px 3px #000000;
+  font-size: 3rem;
+}
+
+.headingone-appear {
+  opacity: 0;
+}
+
+.headingone-appear-active {
+  opacity: 1;
+  transition: opacity 2000ms ease-in;
+}
+
+.headingone-enter-done {
+  opacity: 1;
+  transition: opacity 2000ms ease-in;
+}
+
+.headingtwo-appear {
+  opacity: 0;
+}
+
+.headingtwo-appear-active {
+  opacity: 1;
+  transition: opacity 2000ms ease-in;
+}
+
+.headingtwo-enter-done {
+  opacity: 1;
+  transition: opacity 2000ms ease-in;
+}
+
+.emailform-appear {
+  opacity: 0;
+  transform: translateY(50%);
+}
+
+.emailform-appear-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 1000ms, transform 1200ms;
+}
+
+
+
+
+
+
+@import '~bootstrap/scss/bootstrap';
