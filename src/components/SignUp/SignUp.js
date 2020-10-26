@@ -6,16 +6,28 @@ import messages from '../AutoDismissAlert/messages'
 
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
+// import Col from 'react-bootstrap/Col'
+import { CSSTransition } from 'react-transition-group'
 
 class SignUp extends Component {
   constructor () {
     super()
 
     this.state = {
+      firstname: '',
+      lastname: '',
       email: '',
       password: '',
       passwordConfirmation: ''
     }
+  }
+
+  componentDidMount () {
+    document.getElementById('body').className = 'background-image'
+  }
+
+  componentWillUnmount () {
+    document.getElementById('body').className = ''
   }
 
   handleChange = event => this.setState({
@@ -35,9 +47,9 @@ class SignUp extends Component {
         message: messages.signUpSuccess,
         variant: 'success'
       }))
-      .then(() => history.push('/'))
+      .then(() => history.push('/home'))
       .catch(error => {
-        this.setState({ email: '', password: '', passwordConfirmation: '' })
+        this.setState({ firstname: '', lastname: '', email: '', password: '', passwordConfirmation: '' })
         msgAlert({
           heading: 'Sign Up Failed with error: ' + error.message,
           message: messages.signUpFailure,
@@ -47,15 +59,42 @@ class SignUp extends Component {
   }
 
   render () {
-    const { email, password, passwordConfirmation } = this.state
+    const { firstname, lastname, email, password, passwordConfirmation } = this.state
 
     return (
-      <div className="row">
-        <div className="col-sm-10 col-md-8 mx-auto mt-5">
-          <h3>Sign Up</h3>
+      <CSSTransition in={true} appear={true} timeout={2000}
+        classNames="bottom"
+      >
+        <div className="row-rounded col-5 mx-auto mb-5">
+          <p style={{ color: 'white' }}>New here? Register below.</p>
+          <h3 style={{ color: 'white', textAlign: 'center' }}>Sign Up</h3>
           <Form onSubmit={this.onSignUp}>
+            <Form.Row className="d-flex justify-content-around">
+              <Form.Group contolId="firstname">
+                <Form.Label style={{ color: 'white' }}>First Name</Form.Label>
+                <Form.Control
+                  required
+                  type="firstname"
+                  name="firstname"
+                  value={firstname}
+                  placeholder="Enter First Name"
+                  onChange={this.handleChange}
+                />
+              </Form.Group>
+              <Form.Group contolId="firstname">
+                <Form.Label style={{ color: 'white' }}>Last Name</Form.Label>
+                <Form.Control
+                  required
+                  type="lastname"
+                  name="lastname"
+                  value={lastname}
+                  placeholder="Enter Last Name"
+                  onChange={this.handleChange}
+                />
+              </Form.Group>
+            </Form.Row>
             <Form.Group controlId="email">
-              <Form.Label>Email address</Form.Label>
+              <Form.Label style={{ color: 'white' }}>Email address</Form.Label>
               <Form.Control
                 required
                 type="email"
@@ -65,37 +104,40 @@ class SignUp extends Component {
                 onChange={this.handleChange}
               />
             </Form.Group>
-            <Form.Group controlId="password">
-              <Form.Label>Password</Form.Label>
-              <Form.Control
-                required
-                name="password"
-                value={password}
-                type="password"
-                placeholder="Password"
-                onChange={this.handleChange}
-              />
-            </Form.Group>
-            <Form.Group controlId="passwordConfirmation">
-              <Form.Label>Password Confirmation</Form.Label>
-              <Form.Control
-                required
-                name="passwordConfirmation"
-                value={passwordConfirmation}
-                type="password"
-                placeholder="Confirm Password"
-                onChange={this.handleChange}
-              />
-            </Form.Group>
+            <Form.Row className="d-flex justify-content-around">
+              <Form.Group controlId="password">
+                <Form.Label style={{ color: 'white' }}>Password</Form.Label>
+                <Form.Control
+                  required
+                  name="password"
+                  value={password}
+                  type="password"
+                  placeholder="Password"
+                  onChange={this.handleChange}
+                />
+              </Form.Group>
+              <Form.Group controlId="passwordConfirmation">
+                <Form.Label style={{ color: 'white' }}>Password Confirmation</Form.Label>
+                <Form.Control
+                  required
+                  name="passwordConfirmation"
+                  value={passwordConfirmation}
+                  type="password"
+                  placeholder="Confirm Password"
+                  onChange={this.handleChange}
+                />
+              </Form.Group>
+            </Form.Row>
             <Button
-              variant="primary"
+              style={{ float: 'right' }}
+              variant="outline-white"
               type="submit"
             >
-              Submit
+                Submit
             </Button>
           </Form>
         </div>
-      </div>
+      </CSSTransition>
     )
   }
 }

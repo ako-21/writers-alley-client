@@ -6,6 +6,7 @@ import messages from '../AutoDismissAlert/messages'
 
 class SignOut extends Component {
   componentDidMount () {
+    document.getElementById('body').className = 'background-image'
     const { msgAlert, history, clearUser, user } = this.props
 
     signOut(user)
@@ -16,6 +17,10 @@ class SignOut extends Component {
       }))
       .finally(() => history.push('/'))
       .finally(() => clearUser())
+  }
+
+  componentWillUnmount () {
+    document.getElementById('body').className = ''
   }
 
   render () {

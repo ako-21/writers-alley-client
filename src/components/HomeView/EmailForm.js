@@ -1,15 +1,19 @@
 import React from 'react'
+import { Redirect } from 'react-router-dom'
 import Form from 'react-bootstrap/Form'
 import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
 import { CSSTransition } from 'react-transition-group'
+import axios from 'axios'
+import apiUrl from './../../apiConfig'
 
 class EmailForm extends React.Component {
   state = {
     credentials: {
       email: ''
     },
-    show: false
+    show: false,
+    isUser: ''
   }
 
   componentDidMount () {
@@ -30,13 +34,26 @@ class EmailForm extends React.Component {
       email: ''
     }
     })
+    axios({
+      method: 'GET',
+      url: apiUrl + '/users/' + this.state.credentials.email
+    })
+      .then((res) => { if (res.data.user) { this.setState({ isUser: 'yes' }) } })
+      .catch(() => this.setState({ isUser: 'no' }))
   }
+
   render () {
+    if (this.state.isUser === 'yes') {
+      return <Redirect to='/sign-in' />
+    }
+    if (this.state.isUser === 'no') {
+      return <Redirect to='/sign-up' />
+    }
     let jsx
     if (this.state.show) {
       jsx =
       <CSSTransition in={true} appear={true} timeout={3000}
-        classNames="emailform">
+        classNames="bottom">
         <React.Fragment>
           <div className="d-flex justify-content-center">
             <Form className="bg-charc home-form col-6 mt-4" onSubmit={this.handleSubmit}>

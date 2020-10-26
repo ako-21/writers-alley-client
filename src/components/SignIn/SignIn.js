@@ -6,6 +6,7 @@ import messages from '../AutoDismissAlert/messages'
 
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
+import { CSSTransition } from 'react-transition-group'
 
 class SignIn extends Component {
   constructor () {
@@ -15,6 +16,14 @@ class SignIn extends Component {
       email: '',
       password: ''
     }
+  }
+
+  componentDidMount () {
+    document.getElementById('body').className = 'background-image'
+  }
+
+  componentWillUnmount () {
+    document.getElementById('body').className = ''
   }
 
   handleChange = event => this.setState({
@@ -33,7 +42,7 @@ class SignIn extends Component {
         message: messages.signInSuccess,
         variant: 'success'
       }))
-      .then(() => history.push('/'))
+      .then(() => history.push('/home'))
       .catch(error => {
         this.setState({ email: '', password: '' })
         msgAlert({
@@ -48,12 +57,15 @@ class SignIn extends Component {
     const { email, password } = this.state
 
     return (
-      <div className="row">
-        <div className="col-sm-10 col-md-8 mx-auto mt-5">
-          <h3>Sign In</h3>
+      <CSSTransition in={true} appear={true} timeout={2000}
+        classNames="bottom"
+      >
+        <div className="row-rounded col-5 mx-auto">
+          <p style={{ color: 'white' }}>Welcome Back!</p>
+          <h3 style={{ color: 'white', textAlign: 'center' }}>Sign In</h3>
           <Form onSubmit={this.onSignIn}>
             <Form.Group controlId="email">
-              <Form.Label>Email address</Form.Label>
+              <Form.Label style={{ color: 'white' }}>Email address</Form.Label>
               <Form.Control
                 required
                 type="email"
@@ -64,7 +76,7 @@ class SignIn extends Component {
               />
             </Form.Group>
             <Form.Group controlId="password">
-              <Form.Label>Password</Form.Label>
+              <Form.Label style={{ color: 'white' }}>Password</Form.Label>
               <Form.Control
                 required
                 name="password"
@@ -75,14 +87,15 @@ class SignIn extends Component {
               />
             </Form.Group>
             <Button
-              variant="primary"
+              style={{ float: 'right' }}
+              variant="outline-white"
               type="submit"
             >
-              Submit
+                Submit
             </Button>
           </Form>
         </div>
-      </div>
+      </CSSTransition>
     )
   }
 }

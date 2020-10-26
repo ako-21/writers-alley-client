@@ -9,7 +9,7 @@ $theme-colors: (
   'transparent': #ffffff00
 );
 
-body {
+.background-image {
   background-attachment: fixed;
   background-image: url('./images/home-page-bg.jpg');
   background-repeat: no-repeat;
@@ -32,43 +32,47 @@ body {
   font-size: 3rem;
 }
 
-.headingone-appear {
+.heading-appear {
   opacity: 0;
 }
 
-.headingone-appear-active {
+.heading-appear-active {
   opacity: 1;
   transition: opacity 2000ms ease-in;
 }
 
-.headingone-enter-done {
+.heading-enter-done {
   opacity: 1;
   transition: opacity 2000ms ease-in;
 }
 
-.headingtwo-appear {
-  opacity: 0;
-}
-
-.headingtwo-appear-active {
-  opacity: 1;
-  transition: opacity 2000ms ease-in;
-}
-
-.headingtwo-enter-done {
-  opacity: 1;
-  transition: opacity 2000ms ease-in;
-}
-
-.emailform-appear {
+.bottom-appear {
   opacity: 0;
   transform: translateY(50%);
 }
 
-.emailform-appear-active {
+.bottom-appear-active {
   opacity: 1;
   transform: translateY(0);
-  transition: opacity 1000ms, transform 1200ms;
+  transition: opacity 1200ms, transform 1200ms;
+}
+
+.bottom-exit {
+  opacity: 1;
+}
+
+bottom-exit-active {
+  opacity: 0;
+  transform: scale(.9);
+  transition: opacity 1200ms, transform 1200ms;
+}
+
+.row-rounded {
+  background: #00000080;
+  border-radius: 15px 50px 30px;
+  margin-top: 13%;
+  padding-bottom: 5%;
+  padding-top: 2%;
 }
 
 

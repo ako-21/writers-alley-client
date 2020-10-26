@@ -15,7 +15,7 @@ class HeadingTwo extends React.Component {
     if (this.state.show) {
       jsx =
   <CSSTransition in={true} appear={true} timeout={2000}
-    classNames="headingtwo">
+    classNames="heading">
     <h1 className="home-page-heading">Write better to get where you want to go.</h1>
   </CSSTransition>
     } else {
