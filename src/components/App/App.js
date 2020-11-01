@@ -10,6 +10,7 @@ import SignOut from '../SignOut/SignOut'
 import ChangePassword from '../ChangePassword/ChangePassword'
 import HomeView from '../HomeView/HomeView'
 import UserHome from '../UserHome/UserHome'
+import Terms from '../Terms/Terms'
 
 class App extends Component {
   constructor () {
@@ -43,12 +44,9 @@ class App extends Component {
             message={msgAlert.message}
           />
         ))}
-        <main className="container">
+        <main className="container-fluid p-0" style={{ width: '100vw' }}>
           <Route exact path='/' render={() => (
             <HomeView />
-          )} />
-          <Route exact path='/home' render={() => (
-            <UserHome />
           )} />
           <Route path='/sign-up' render={() => (
             <SignUp msgAlert={this.msgAlert} setUser={this.setUser} />
@@ -61,6 +59,12 @@ class App extends Component {
           )} />
           <AuthenticatedRoute user={user} path='/change-password' render={() => (
             <ChangePassword msgAlert={this.msgAlert} user={user} />
+          )} />
+          <AuthenticatedRoute user={user} exact path='/home' render={() => (
+            <UserHome />
+          )} />
+          <AuthenticatedRoute user={user} exact path='/terms' render={() => (
+            <Terms />
           )} />
         </main>
       </React.Fragment>

@@ -11,7 +11,7 @@ class HeadingOne extends React.Component {
       <div className="col-12 d-flex justify-content-center heading-div">
         <CSSTransition in={true} appear={true} timeout={2000}
           classNames="heading">
-          <h1 className="home-page-heading ml-3 mb-2">Open doors to better expression...</h1>
+          <h1 className="home-page-heading ml-3 mb-2">Open doors to better expression.</h1>
         </CSSTransition>
       </div>
     )

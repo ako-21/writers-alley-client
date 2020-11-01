@@ -47,7 +47,7 @@ class SignUp extends Component {
         message: messages.signUpSuccess,
         variant: 'success'
       }))
-      .then(() => history.push('/home'))
+      .then(() => history.push('/terms'))
       .catch(error => {
         this.setState({ firstname: '', lastname: '', email: '', password: '', passwordConfirmation: '' })
         msgAlert({
