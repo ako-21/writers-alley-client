@@ -1,6 +1,6 @@
 import React from 'react'
 import NoteBookButton from './NoteBookButton'
-import CloseButton from './CloseButton'
+import SideBar from './SideBar'
 
 class NoteBookNav extends React.Component {
   state = {
@@ -21,9 +21,8 @@ class NoteBookNav extends React.Component {
       jsx =
       <NoteBookButton handleClick={this.handleClick}></NoteBookButton>
     } else {
-      document.getElementById('notebooktoggle').className = 'notebooktoggleclose'
       jsx =
-      <CloseButton handleClose={this.handleClose}></CloseButton>
+      <SideBar handleClose={this.handleClose}></SideBar>
     }
     return (
       <React.Fragment>

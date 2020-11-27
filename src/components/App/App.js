@@ -11,6 +11,9 @@ import ChangePassword from '../ChangePassword/ChangePassword'
 import HomeView from '../HomeView/HomeView'
 import UserHome from '../UserHome/UserHome'
 import Terms from '../Terms/Terms'
+import Howitworks from '../Phases/Howitworks'
+import Welcome from '../Welcome/Welcome'
+import WritingDetail from '../UserHome/Writings/WritingDetail'
 
 class App extends Component {
   constructor () {
@@ -61,10 +64,19 @@ class App extends Component {
             <ChangePassword msgAlert={this.msgAlert} user={user} />
           )} />
           <AuthenticatedRoute user={user} exact path='/home' render={() => (
-            <UserHome />
+            <UserHome user={user} />
           )} />
           <AuthenticatedRoute user={user} exact path='/terms' render={() => (
             <Terms />
+          )} />
+          <AuthenticatedRoute user={user} exact path='/howitworks' render={() => (
+            <Howitworks />
+          )} />
+          <AuthenticatedRoute user={user} exact path='/welcome' render={() => (
+            <Welcome />
+          )} />
+          <AuthenticatedRoute user={user} path='/writings/:id' render={() => (
+            <WritingDetail msgAlert={this.msgAlert} user={user} />
           )} />
         </main>
       </React.Fragment>

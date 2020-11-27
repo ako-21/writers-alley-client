@@ -14,7 +14,7 @@ class Terms extends React.Component {
 
   render () {
     if (this.state.show === false) {
-      return <Redirect to='/home' />
+      return <Redirect to='/welcome' />
     }
     return (
       <Modal size="lg" show={this.state.show}>

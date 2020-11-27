@@ -81,7 +81,7 @@ class SignUp extends Component {
                   onChange={this.handleChange}
                 />
               </Form.Group>
-              <Form.Group contolId="firstname">
+              <Form.Group contolId="lastname">
                 <Form.Label style={{ color: 'white' }}>Last Name</Form.Label>
                 <Form.Control
                   required
