@@ -70,7 +70,7 @@ class SignUp extends Component {
           <h3 style={{ color: 'white', textAlign: 'center' }}>Sign Up</h3>
           <Form onSubmit={this.onSignUp}>
             <Form.Row className="d-flex justify-content-around">
-              <Form.Group contolId="firstname">
+              <Form.Group controlId="firstname">
                 <Form.Label style={{ color: 'white' }}>First Name</Form.Label>
                 <Form.Control
                   required
@@ -81,7 +81,7 @@ class SignUp extends Component {
                   onChange={this.handleChange}
                 />
               </Form.Group>
-              <Form.Group contolId="lastname">
+              <Form.Group controlId="lastname">
                 <Form.Label style={{ color: 'white' }}>Last Name</Form.Label>
                 <Form.Control
                   required

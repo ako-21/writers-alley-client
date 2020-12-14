@@ -4,6 +4,8 @@ import apiUrl from './../../../apiConfig'
 import { withRouter } from 'react-router-dom'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
+import Tooltip from 'react-bootstrap/Tooltip'
 import NewWritingButton from './../NewWritingButton'
 import WritingDropDown from './../WritingDropDown'
 import NoteBookNav from './../NoteBookNav/NoteBookNav'
@@ -57,7 +59,10 @@ class WritingDetail extends React.Component {
     if (this.state.hovered === false) {
       trashButton = <AiOutlineDelete size={28} type="button" onMouseEnter={this.hoverButton} onMouseLeave={this.hoverButton} onClick={this.openDeleteModal}></AiOutlineDelete>
     } else {
-      trashButton = <AiFillDelete size={28} type="button" onMouseEnter={this.hoverButton} onMouseLeave={this.hoverButton} onClick={this.openDeleteModal}></AiFillDelete>
+      trashButton =
+      <OverlayTrigger delay={{ show: 250, hide: 400 }} placement="top" overlay={ (props) => (<Tooltip {...props} show={props.show.toString()}>Delete Writing</Tooltip>) }>
+        <AiFillDelete size={28} type="button" onMouseEnter={this.hoverButton} onMouseLeave={this.hoverButton} onClick={this.openDeleteModal}></AiFillDelete>
+      </OverlayTrigger>
     }
     return (
       <Container fluid className="mt-2">
@@ -87,7 +92,7 @@ class WritingDetail extends React.Component {
         </Row>
         <Modal show={this.state.show} onHide={this.closeDeleteModal}>
           <Modal.Header closeButton>
-            <Modal.Title>Are you sure you want to delete?</Modal.Title>
+            <Modal.Title>Are you sure you want to delete this writing?</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <p>Deleting <span style={{ fontWeight: 'bold' }}>{this.state.title}</span> cannot be undone!</p>
