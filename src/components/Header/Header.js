@@ -5,7 +5,7 @@ import Logo from './../../images/headerLogo.png'
 import Button from 'react-bootstrap/Button'
 import { BsQuestionCircle } from 'react-icons/bs'
 import { RiShareForwardLine } from 'react-icons/ri'
-import ProgressBar from './ProgressBar'
+// import ProgressBar from './ProgressBar'
 
 const authenticatedOptions = (
   <Fragment>
@@ -36,7 +36,6 @@ const Header = ({ user }) => (
     <Navbar.Collapse id="basic-navbar-nav">
       <Nav className="ml-auto">
         <div className="mr-5 d-flex align-items-center">
-          { user && <ProgressBar></ProgressBar> }
           { user && <RiShareForwardLine className="mr-4" style={{ color: 'rgba(255, 255, 255, 0.5)', fontSize: '1.5rem' }}></RiShareForwardLine> }
           { user && <BsQuestionCircle style={{ color: 'rgba(255, 255, 255, 0.5)', fontSize: '1.5rem' }}></BsQuestionCircle> }
         </div>
