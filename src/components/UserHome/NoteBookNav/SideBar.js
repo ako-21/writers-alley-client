@@ -2,7 +2,7 @@ import React from 'react'
 import { BsChevronDoubleLeft } from 'react-icons/bs'
 import ListGroup from 'react-bootstrap/ListGroup'
 import Button from 'react-bootstrap/Button'
-import WelcomeCheck from './CheckBoxes/WelcomeCheck'
+import ChecklistBar from './ChecklistBar'
 
 class SideBar extends React.Component {
   render () {
@@ -13,7 +13,7 @@ class SideBar extends React.Component {
         <Button size='lg' variant='light' style={{ fontSize: '1rem', borderSize: '1rem', borderColor: 'rgba(0, 0, 0, 0.125)' }}>Notebook &nbsp;<BsChevronDoubleLeft></BsChevronDoubleLeft></Button>
       </ListGroup>
       <ListGroup className='ml-1'>
-        <ListGroup.Item as="li" active style={{ textAlign: 'center' }}>Checklist <WelcomeCheck></WelcomeCheck></ListGroup.Item>
+        <ListGroup.Item as="li" active style={{ textAlign: 'center' }}><ChecklistBar isComplete={this.props.isComplete} userToken={this.props.userToken} writingId={this.props.writingId}></ChecklistBar></ListGroup.Item>
         <ListGroup.Item>Item Item Item</ListGroup.Item>
         <ListGroup.Item>Item Item Item</ListGroup.Item>
         <ListGroup.Item>Item Item Item</ListGroup.Item>

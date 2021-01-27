@@ -11,7 +11,7 @@ $theme-colors: (
 
 .background-image {
   background-attachment: fixed;
-  background-image: url('./images/home-page-bg.jpg');
+  background-image: url('./images/home-page-bg-2.png');
   background-repeat: no-repeat;
   background-size: cover;
 }
@@ -20,6 +20,14 @@ $theme-colors: (
   background-color: #ffffff00 !important;
   border: none !important;
   color: #fff
+}
+
+.list-group-item.active {
+  z-index: 2 !important;
+  color: black !important;
+  font-weight: bold !important;
+  background-color: #f8f9fa !important;
+  border-color: #343a40 !important;
 }
 
 .strikethrough {

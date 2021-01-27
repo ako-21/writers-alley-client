@@ -1,7 +1,7 @@
 import React from 'react'
 import DropdownButton from 'react-bootstrap/DropdownButton'
 import Dropdown from 'react-bootstrap/Dropdown'
-import { Redirect, withRouter } from 'react-router-dom'
+import { Switch, Redirect, withRouter } from 'react-router-dom'
 import axios from 'axios'
 import apiUrl from './../../apiConfig'
 
@@ -26,6 +26,10 @@ class WritingDropDown extends React.Component {
         })
       })
   }
+
+  // toFalse = () => {
+  //   this.setState({ selected: false })
+  // }
 
   componentDidMount () {
     axios({
@@ -57,7 +61,17 @@ class WritingDropDown extends React.Component {
 
   render () {
     if (this.state.selected === true) {
-      return <Redirect to={{ pathname: '/writings/' + this.state.id, props: { user: this.props.user } }} />
+      if (this.props.match.params.id === this.state.id) {
+        return <div>
+          <DropdownButton variant="outline-dark" title="writings">
+            {this.state.writings.map(writing => (
+              <Dropdown.Item onClick={event => { this.setState({ selected: true, id: writing._id }) }} key={writing._id} id={writing._id} onMouseEnter={() => { document.getElementById(writing._id).style.backgroundColor = '#343a40'; document.getElementById(writing._id).style.color = 'white' }} onMouseLeave={() => { document.getElementById(writing._id).style.backgroundColor = 'transparent'; document.getElementById(writing._id).style.color = 'black' }}>{writing.title}</Dropdown.Item>
+            ))}
+          </DropdownButton>
+        </div>
+      } else {
+        return <Switch><Redirect to={{ pathname: '/writings/' + this.state.id, props: { user: this.props.user } }} /></Switch>
+      }
     }
     let jsx
     if (this.state.writings === null) {

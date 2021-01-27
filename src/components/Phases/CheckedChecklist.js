@@ -16,13 +16,13 @@ class CheckedChecklist extends React.Component {
     if (this.props.checked === false) {
       checkBox = (
         <OverlayTrigger delay={{ show: 250, hide: 400 }} placement="top" overlay={ (props) => (<Tooltip {...props} show={props.show.toString()}>Check Requirement</Tooltip>) }>
-          <ImCheckboxUnchecked type="button" onClick={this.props.onClick} size={20} id={this.props.id} checked={this.props.checked}></ImCheckboxUnchecked>
+          <ImCheckboxUnchecked type="button" onClick={this.props.onClick} size={20} checked={this.props.checked}></ImCheckboxUnchecked>
         </OverlayTrigger>
       )
     } else {
       checkBox = (
         <OverlayTrigger delay={{ show: 250, hide: 400 }} placement="top" overlay={ (props) => (<Tooltip {...props} show={props.show.toString()}>Uncheck Requirement</Tooltip>) }>
-          <ImCheckboxChecked type="button" onClick={this.props.onClick} size={20} id={this.props.id} checked={this.props.checked}></ImCheckboxChecked>
+          <ImCheckboxChecked type="button" onClick={this.props.onClick} size={20} checked={this.props.checked}></ImCheckboxChecked>
         </OverlayTrigger>
       )
     }

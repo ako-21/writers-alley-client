@@ -14,13 +14,47 @@ import { AiOutlineDelete, AiFillDelete } from 'react-icons/ai'
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
 import Checklist from './../../Phases/Checklist'
+import NewWritingModal from './../NewWritingModal'
 
 class WritingDetail extends React.Component {
   state = {
     title: '',
     hovered: false,
-    show: false
+    show: false,
+    checklist: {
+      isComplete: '',
+      id: ''
+    },
+    writing: {
+      title: ''
+    },
+    added: false,
+    showNWM: false
   }
+  getRequest = () => {
+    axios({
+      url: `${apiUrl}/writings`,
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${this.props.user.token}`
+      }
+    })
+  }
+  getWritingDetailChecklist = () => {
+    axios({
+      method: 'GET',
+      url: apiUrl + '/writings/' + this.props.match.params.id,
+      headers: {
+        'Authorization': `Bearer ${this.props.user.token}`
+      }
+    })
+      .then(res => this.setState({
+        checklist: {
+          isComplete: res.data.writing.checklist.isComplete
+        }
+      }))
+  }
+
   hoverButton = () => {
     this.setState({ hovered: !this.state.hovered })
   }
@@ -44,6 +78,47 @@ class WritingDetail extends React.Component {
       .then(() => this.props.history.push('/home'))
   }
 
+  newWritingModal = () => {
+    this.setState({ showNWM: true, added: false })
+  }
+
+  newWritingModalClose = () => {
+    this.setState({ showNWM: false })
+  }
+
+  handleInputChange = (event) => {
+    const writingKey = event.target.name
+    const value = event.target.value
+    const writingCopy = Object.assign({}, this.state.title)
+    writingCopy[writingKey] = value
+    this.setState({ writing: writingCopy })
+  }
+
+  handleSubmit = (event) => {
+    event.preventDefault()
+    this.setState({ writing: {
+      title: ''
+    }
+    })
+    axios({
+      method: 'POST',
+      url: apiUrl + '/writings',
+      headers: {
+        'Authorization': `Bearer ${this.props.user.token}`
+      },
+      data: {
+        writing: {
+          title: this.state.writing.title,
+          isComplete: false
+        }
+      }
+    })
+      .then(() => this.newWritingModalClose())
+      .then(this.setState({ added: true }))
+      .then(() => this.getRequest())
+      // .then(() => this.props.history.push('/home'))
+  }
+
   componentDidMount () {
     axios({
       url: `${apiUrl}/writings/` + this.props.match.params.id,
@@ -52,7 +127,18 @@ class WritingDetail extends React.Component {
         'Authorization': `Bearer ${this.props.user.token}`
       }
     })
-      .then(res => this.setState({ title: res.data.writing.title }))
+      .then(res => {
+        if (res.data.writing.checklist) {
+          this.setState({ title: res.data.writing.title,
+            checklist: {
+              isComplete: res.data.writing.checklist.isComplete,
+              id: res.data.writing.checklist._id
+            } })
+        } else {
+          this.setState({ title: res.data.writing.title })
+        }
+      }
+      )
   }
   render () {
     let trashButton
@@ -73,7 +159,7 @@ class WritingDetail extends React.Component {
               <WritingDropDown added={this.state.added} user={this.props.user}></WritingDropDown>
             </Col>
             <Col lg={8}>
-              <NoteBookNav></NoteBookNav>
+              <NoteBookNav {...this.state} userToken={this.props.user.token} writingId={this.props.match.params.id}></NoteBookNav>
             </Col>
           </Col>
           <Col lg={8}>
@@ -86,7 +172,7 @@ class WritingDetail extends React.Component {
               </div>
             </div>
             <div className="mt-3">
-              <Checklist></Checklist>
+              <Checklist getWritingDetailChecklist={this.getWritingDetailChecklist}></Checklist>
             </div>
           </Col>
         </Row>
@@ -106,6 +192,7 @@ class WritingDetail extends React.Component {
             </Button>
           </Modal.Footer>
         </Modal>
+        <NewWritingModal show={this.state.showNWM} onHide={this.newWritingModalClose} onSubmit={this.handleSubmit} onChange={this.handleInputChange} onClick={this.newWritingModalClose}></NewWritingModal>
       </Container>
     )
   }

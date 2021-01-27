@@ -262,16 +262,16 @@ class Checklist extends React.Component {
       }))
   }
 
-  getChecklist2 = (event) => {
-    axios({
-      method: 'GET',
-      url: apiUrl + '/writings/' + this.props.match.params.id,
-      headers: {
-        'Authorization': `Bearer ${this.props.location.props.user.token}`
-      }
-    })
-      .then(res => console.log(res.data))
-  }
+  // getChecklist2 = (event) => {
+  //   axios({
+  //     method: 'GET',
+  //     url: apiUrl + '/writings/' + this.props.match.params.id,
+  //     headers: {
+  //       'Authorization': `Bearer ${this.props.location.props.user.token}`
+  //     }
+  //   })
+  //     .then(res => console.log(res.data))
+  // }
 
   deleteChecklist = (event) => {
     axios({
@@ -303,7 +303,7 @@ class Checklist extends React.Component {
       jsx = (
         <React.Fragment>
           { /* <Button onClick={this.getChecklist2}>Get</Button><Button onClick={this.deleteChecklist}>Delete</Button> */ }
-          <EditChecklist user={this.props.location.props.user} id={this.props.match.params.id}></EditChecklist>
+          <EditChecklist getWritingDetailChecklist={this.props.getWritingDetailChecklist} user={this.props.location.props.user} id={this.props.match.params.id} checklistId={this.state.checklistId}></EditChecklist>
         </React.Fragment>
       )
     } else if (this.state.loading === true) {

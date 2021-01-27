@@ -28,6 +28,7 @@ class EditChecklist extends React.Component {
     ellipseModal: false,
     modalTitle: '',
     modalDescription: '',
+    runningIf: true,
     userReq: {
       title: '',
       description: '',
@@ -221,6 +222,7 @@ class EditChecklist extends React.Component {
       }
     })
       .then(() => this.getRequest())
+      .then(() => this.setState({ runningIf: true }))
   }
 
   checkedProgram = (req) => {
@@ -239,6 +241,43 @@ class EditChecklist extends React.Component {
       }
     })
       .then(() => this.getRequest())
+      .then(() => this.setState({ runningIf: true }))
+  }
+
+  checklistComplete = () => {
+    axios({
+      method: 'PATCH',
+      url: apiUrl + '/checklists/' + this.props.checklistId,
+      headers: {
+        'Authorization': `Bearer ${this.props.user.token}`
+      },
+      data: {
+        checklist: {
+          isComplete: true,
+          writingId: this.props.id
+        }
+      }
+    })
+      .then(() => this.props.getWritingDetailChecklist())
+      .then(() => this.setState({ runningIf: 'false' }))
+  }
+
+  checklistIncomplete = () => {
+    axios({
+      method: 'PATCH',
+      url: apiUrl + '/checklists/' + this.props.checklistId,
+      headers: {
+        'Authorization': `Bearer ${this.props.user.token}`
+      },
+      data: {
+        checklist: {
+          isComplete: false,
+          writingId: this.props.id
+        }
+      }
+    })
+      .then(() => this.props.getWritingDetailChecklist())
+      .then(() => this.setState({ runningIf: 'false' }))
   }
 
   limit = (str, length) => {
@@ -338,7 +377,7 @@ class EditChecklist extends React.Component {
         <div className="d-flex justify-content-center">
           {heading}
           <div className="d-flex align-items-center">
-            <CompleteChecklist {...this.state}></CompleteChecklist>
+            <CompleteChecklist checklistComplete={this.checklistComplete} checklistIncomplete={this.checklistIncomplete} runningIf={this.state.runningIf} getWritingDetailChecklist={this.props.getWritingDetailChecklist} writingId={this.props.id} userToken={this.props.user.token} {...this.state}></CompleteChecklist>
           </div>
         </div>
         <Button className="mb-4" variant="outline-dark" onClick={() => this.setState({ createModal: true })}>Add Requirement</Button>

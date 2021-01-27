@@ -22,7 +22,7 @@ class NoteBookNav extends React.Component {
       <NoteBookButton handleClick={this.handleClick}></NoteBookButton>
     } else {
       jsx =
-      <SideBar handleClose={this.handleClose}></SideBar>
+      <SideBar isComplete={this.props.checklist.isComplete} writingId={this.props.writingId} userToken={this.props.userToken} handleClose={this.handleClose}></SideBar>
     }
     return (
       <React.Fragment>

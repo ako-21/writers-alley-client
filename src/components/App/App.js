@@ -75,8 +75,8 @@ class App extends Component {
           <AuthenticatedRoute user={user} exact path='/welcome' render={() => (
             <Welcome />
           )} />
-          <AuthenticatedRoute user={user} path='/writings/:id' render={() => (
-            <WritingDetail msgAlert={this.msgAlert} user={user} />
+          <AuthenticatedRoute user={user} path='/writings/:id' render={(props) => (
+            <WritingDetail {...props} key={props.match.params.id} msgAlert={this.msgAlert} user={user} />
           )} />
         </main>
       </React.Fragment>

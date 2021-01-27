@@ -78,7 +78,7 @@ class UserHome extends React.Component {
       .then(() => this.newWritingModalClose())
       .then(this.setState({ added: true }))
       .then(() => this.getRequest())
-      .then(() => this.props.history.push('/home'))
+      // .then(() => this.props.history.push('/home'))
   }
 
   componentDidMount () {
