@@ -403,7 +403,7 @@ class Checklist extends React.Component {
                   <Button onClick={ () => { if (this.state.programReq.description1 === '') { this.setState({ dateModal: true }) } else { this.setState({ group: 'second' }) } }} variant='dark' style={{ float: 'right' }}>Next&nbsp;<BsArrowRight></BsArrowRight></Button>
                 </Col>
               </Form>
-              <Button onClick={this.deleteChecklist}>Delete</Button>
+              { /* <Button onClick={this.deleteChecklist}>Delete</Button> */ }
               { /* <Button onClick={this.getChecklist}>Get</Button> */ }
             </React.Fragment>
           )
@@ -526,8 +526,8 @@ class Checklist extends React.Component {
             <div className="d-flex justify-content-end">
               <Button className="mr-5" variant="outline-dark" onClick={this.createChecklist}>Checklist&nbsp;<BsArrowRight></BsArrowRight></Button>
             </div>
-            <Button onClick={this.deleteChecklist}>Delete</Button>
-            <Button onClick={this.getChecklist}>Get</Button>
+            { /* <Button onClick={this.deleteChecklist}>Delete</Button> */ }
+            { /* <Button onClick={this.getChecklist}>Get</Button> */ }
             { /*  <Button onClick={this.deleteChecklist}>Delete</Button>  */ }
           </React.Fragment>
         )

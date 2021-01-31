@@ -29,7 +29,7 @@ const unauthenticatedOptions = (
 
 const Header = ({ user }) => (
   <Navbar bg={ user ? 'dark' : 'transparent' } variant="dark" expand="md">
-    <Navbar.Brand href="#">
+    <Navbar.Brand href={ user ? '#home' : '#' }>
       <img src={Logo} alt="logo" className="logo ml-5" />
     </Navbar.Brand>
     <Navbar.Toggle aria-controls="basic-navbar-nav" />

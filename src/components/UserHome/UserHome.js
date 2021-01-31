@@ -13,7 +13,7 @@ import Col from 'react-bootstrap/Col'
 import axios from 'axios'
 import apiUrl from './../../apiConfig'
 import NewWritingModal from './NewWritingModal'
-import { withRouter } from 'react-router-dom'
+import { withRouter, Redirect, Switch } from 'react-router-dom'
 
 class UserHome extends React.Component {
   state = {
@@ -22,7 +22,8 @@ class UserHome extends React.Component {
     added: false,
     writing: {
       title: ''
-    }
+    },
+    writings: ''
   }
 
   newWritingModal = () => {
@@ -78,7 +79,20 @@ class UserHome extends React.Component {
       .then(() => this.newWritingModalClose())
       .then(this.setState({ added: true }))
       .then(() => this.getRequest())
+      .then(() => this.toNewWriting())
       // .then(() => this.props.history.push('/home'))
+  }
+
+  toNewWriting = () => {
+    axios({
+      url: `${apiUrl}/writings`,
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${this.props.user.token}`
+      }
+    })
+      // .then((res) => console.log(res.data))
+      .then((res) => this.setState({ writings: res.data.writings }))
   }
 
   componentDidMount () {
@@ -89,6 +103,11 @@ class UserHome extends React.Component {
   }
 
   render () {
+    if (this.state.writings !== '') {
+      const writingsArray = this.state.writings
+      const lastWriting = writingsArray[writingsArray.length - 1]
+      return <Switch><Redirect to={{ pathname: '/writings/' + lastWriting._id, props: { user: this.props.user } }} /></Switch>
+    }
     let jsx
     if (this.state.loading === true) {
       jsx =

@@ -1,7 +1,7 @@
 import React from 'react'
 import axios from 'axios'
 import apiUrl from './../../../apiConfig'
-import { withRouter } from 'react-router-dom'
+import { withRouter, Redirect, Switch } from 'react-router-dom'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
@@ -29,7 +29,8 @@ class WritingDetail extends React.Component {
       title: ''
     },
     added: false,
-    showNWM: false
+    showNWM: false,
+    writings: ''
   }
   getRequest = () => {
     axios({
@@ -116,7 +117,20 @@ class WritingDetail extends React.Component {
       .then(() => this.newWritingModalClose())
       .then(this.setState({ added: true }))
       .then(() => this.getRequest())
+      .then(() => this.toNewWriting())
       // .then(() => this.props.history.push('/home'))
+  }
+
+  toNewWriting = () => {
+    axios({
+      url: `${apiUrl}/writings`,
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${this.props.user.token}`
+      }
+    })
+      // .then((res) => console.log(res.data))
+      .then((res) => this.setState({ writings: res.data.writings }))
   }
 
   componentDidMount () {
@@ -140,7 +154,21 @@ class WritingDetail extends React.Component {
       }
       )
   }
+
+  limit = (str, length) => {
+    if (str.length <= length) {
+      return str
+    } else {
+      return str.substring(0, length) + '...'
+    }
+  }
+
   render () {
+    if (this.state.writings !== '') {
+      const writingsArray = this.state.writings
+      const lastWriting = writingsArray[writingsArray.length - 1]
+      return <Switch><Redirect to={{ pathname: '/writings/' + lastWriting._id, props: { user: this.props.user } }} /></Switch>
+    }
     let trashButton
     if (this.state.hovered === false) {
       trashButton = <AiOutlineDelete size={28} type="button" onMouseEnter={this.hoverButton} onMouseLeave={this.hoverButton} onClick={this.openDeleteModal}></AiOutlineDelete>
@@ -165,7 +193,7 @@ class WritingDetail extends React.Component {
           <Col lg={8}>
             <div style={{ marginTop: '4rem' }} className="d-flex flex-row">
               <div>
-                <h1 className="mr-2">{this.state.title}</h1>
+                <h1 className="mr-2">{this.limit(this.state.title, 30)}</h1>
               </div>
               <div className="d-flex align-items-center">
                 {trashButton}

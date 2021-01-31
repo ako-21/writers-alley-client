@@ -8,7 +8,7 @@ class NewWritingModal extends React.Component {
     const jsx =
     // <Button size='sm' className='ml-1 notebooktoggleclose' variant='dark' style={{ marginTop: '5rem', fontSize: '1rem' }} onClick={this.props.handleClose}>Notebook &nbsp;<CgClose></CgClose></Button>
     <React.Fragment>
-      <Modal show={this.props.show} onHide={this.props.onHide}>
+      <Modal show={this.props.show} onHide={this.props.onHide} backdrop="static">
         <Modal.Header closeButton>
           <Modal.Title>What&apos;s the title of your new writing?</Modal.Title>
         </Modal.Header>
