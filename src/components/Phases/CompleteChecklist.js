@@ -71,38 +71,42 @@ class CompleteChecklist extends React.Component {
         <Spinning></Spinning>
       )
     } else {
-      if (!this.props.userReqs || this.props.userReqs.length === 0) {
-        userReqsTotal = 0
-        userCompleteTotal = 0
-      } else if (!this.props.programReqs || this.props.programReqs.length === 0) {
-        programReqsTotal = 0
-        programCompleteTotal = 0
-      } else if (this.props.userReqs.length > 0 && this.props.programReqs.length > 0) {
+      if (this.props.userReqs.length > 0) {
         const tallyUserReqs = (arr) => {
           userReqsTotal = userReqsTotal + 1
-        }
-        const tallyProgramReqs = (arr) => {
-          programReqsTotal = programReqsTotal + 1
         }
         const tallyUserComplete = (arr) => {
           if (arr.isChecked === true) {
             userCompleteTotal = userCompleteTotal + 1
           }
         }
+        this.props.userReqs.forEach(tallyUserReqs)
+        this.props.userReqs.forEach(tallyUserComplete)
+      }
+      if (this.props.programReqs.length > 0) {
+        const tallyProgramReqs = (arr) => {
+          programReqsTotal = programReqsTotal + 1
+        }
         const tallyProgramComplete = (arr) => {
           if (arr.isChecked === true) {
             programCompleteTotal = programCompleteTotal + 1
           }
         }
-        this.props.userReqs.forEach(tallyUserReqs)
         this.props.programReqs.forEach(tallyProgramReqs)
-        this.props.userReqs.forEach(tallyUserComplete)
         this.props.programReqs.forEach(tallyProgramComplete)
-        total = programReqsTotal + userReqsTotal
-        totalComplete = programCompleteTotal + userCompleteTotal
       }
+      if (!this.props.userReqs || this.props.userReqs.length === 0) {
+        userReqsTotal = 0
+        userCompleteTotal = 0
+      }
+      if (!this.props.programReqs || this.props.programReqs.length === 0) {
+        programReqsTotal = 0
+        programCompleteTotal = 0
+      }
+      total = programReqsTotal + userReqsTotal
+      totalComplete = programCompleteTotal + userCompleteTotal
       if (this.props.runningIf === true) {
-        if (programReqsTotal && userReqsTotal === 0) {
+        if (programReqsTotal === 0 && userReqsTotal === 0) {
           jsx = (
             <React.Fragment>
             </React.Fragment>
@@ -134,7 +138,7 @@ class CompleteChecklist extends React.Component {
           }
         }
       } else {
-        if (programReqsTotal && userReqsTotal === 0) {
+        if (programReqsTotal === 0 && userReqsTotal === 0) {
           jsx = (
             <React.Fragment>
             </React.Fragment>

@@ -96,7 +96,7 @@ class UserHome extends React.Component {
   }
 
   componentDidMount () {
-    setTimeout(() => { this.setState({ loading: !this.state.loading }) }, 2000)
+    setTimeout(() => { this.setState({ loading: !this.state.loading }) }, 1000)
     if (this.props.location.state) {
       this.setState({ show: true })
     }
