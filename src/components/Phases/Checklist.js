@@ -105,109 +105,129 @@ class Checklist extends React.Component {
         'Authorization': `Bearer ${this.props.location.props.user.token}`
       },
       data: {
-        programReq: { title: this.state.programReq.title1, description: this.state.programReq.description1, isChecked: false, writingId: this.props.match.params.id },
+        programReq: {
+          title: this.state.programReq.title1, description: this.state.programReq.description1, isChecked: false, writingId: this.props.match.params.id
+        },
         writingId: this.props.match.params.id
       }
     })
-    axios({
-      method: 'POST',
-      url: apiUrl + '/programReqs',
-      headers: {
-        'Authorization': `Bearer ${this.props.location.props.user.token}`
-      },
-      data: {
-        programReq: { title: this.state.programReq.title2, description: this.state.programReq.description2, isChecked: false, writingId: this.props.match.params.id },
-        writingId: this.props.match.params.id
-      }
-    })
-    axios({
-      method: 'POST',
-      url: apiUrl + '/programReqs',
-      headers: {
-        'Authorization': `Bearer ${this.props.location.props.user.token}`
-      },
-      data: {
-        programReq: { title: this.state.programReq.title3, description: this.state.programReq.description3, isChecked: false, writingId: this.props.match.params.id },
-        writingId: this.props.match.params.id
-      }
-    })
-    axios({
-      method: 'POST',
-      url: apiUrl + '/programReqs',
-      headers: {
-        'Authorization': `Bearer ${this.props.location.props.user.token}`
-      },
-      data: {
-        programReq: { title: this.state.programReq.title4, description: this.state.programReq.description4, isChecked: false, writingId: this.props.match.params.id },
-        writingId: this.props.match.params.id
-      }
-    })
-    axios({
-      method: 'POST',
-      url: apiUrl + '/programReqs',
-      headers: {
-        'Authorization': `Bearer ${this.props.location.props.user.token}`
-      },
-      data: {
-        programReq: { title: this.state.programReq.title5, description: this.state.programReq.description5, isChecked: false, writingId: this.props.match.params.id },
-        writingId: this.props.match.params.id
-      }
-    })
-    axios({
-      method: 'POST',
-      url: apiUrl + '/programReqs',
-      headers: {
-        'Authorization': `Bearer ${this.props.location.props.user.token}`
-      },
-      data: {
-        programReq: { title: this.state.programReq.title7, description: this.state.programReq.description7, isChecked: false, writingId: this.props.match.params.id },
-        writingId: this.props.match.params.id
-      }
-    })
-    axios({
-      method: 'POST',
-      url: apiUrl + '/programReqs',
-      headers: {
-        'Authorization': `Bearer ${this.props.location.props.user.token}`
-      },
-      data: {
-        programReq: { title: this.state.programReq.title8, description: this.state.programReq.description8, isChecked: false, writingId: this.props.match.params.id },
-        writingId: this.props.match.params.id
-      }
-    })
-    axios({
-      method: 'POST',
-      url: apiUrl + '/programReqs',
-      headers: {
-        'Authorization': `Bearer ${this.props.location.props.user.token}`
-      },
-      data: {
-        programReq: { title: this.state.programReq.title9, description: this.state.programReq.description9, isChecked: false, writingId: this.props.match.params.id },
-        writingId: this.props.match.params.id
-      }
-    })
-    axios({
-      method: 'POST',
-      url: apiUrl + '/programReqs',
-      headers: {
-        'Authorization': `Bearer ${this.props.location.props.user.token}`
-      },
-      data: {
-        programReq: { title: this.state.programReq.title10, description: this.state.programReq.description10, isChecked: false, writingId: this.props.match.params.id },
-        writingId: this.props.match.params.id
-      }
-    })
-    axios({
-      method: 'POST',
-      url: apiUrl + '/programReqs',
-      headers: {
-        'Authorization': `Bearer ${this.props.location.props.user.token}`
-      },
-      data: {
-        programReq: { title: this.state.programReq.title11, description: this.state.programReq.description11, isChecked: false, writingId: this.props.match.params.id },
-        writingId: this.props.match.params.id
-      }
-    })
+    if (this.state.programReq.description2 !== '') {
+      axios({
+        method: 'POST',
+        url: apiUrl + '/programReqs',
+        headers: {
+          'Authorization': `Bearer ${this.props.location.props.user.token}`
+        },
+        data: {
+          programReq: { title: this.state.programReq.title2, description: this.state.programReq.description2, isChecked: false, writingId: this.props.match.params.id },
+          writingId: this.props.match.params.id
+        }
+      })
+    }
+    if (this.state.programReq.description3 !== '') {
+      axios({
+        method: 'POST',
+        url: apiUrl + '/programReqs',
+        headers: {
+          'Authorization': `Bearer ${this.props.location.props.user.token}`
+        },
+        data: {
+          programReq: { title: this.state.programReq.title3, description: this.state.programReq.description3, isChecked: false, writingId: this.props.match.params.id },
+          writingId: this.props.match.params.id
+        }
+      })
+    }
+    if (this.state.programReq.description4 !== '') {
+      axios({
+        method: 'POST',
+        url: apiUrl + '/programReqs',
+        headers: {
+          'Authorization': `Bearer ${this.props.location.props.user.token}`
+        },
+        data: {
+          programReq: { title: this.state.programReq.title4, description: this.state.programReq.description4, isChecked: false, writingId: this.props.match.params.id },
+          writingId: this.props.match.params.id
+        }
+      })
+    }
+    if (this.state.programReq.description5 !== '') {
+      axios({
+        method: 'POST',
+        url: apiUrl + '/programReqs',
+        headers: {
+          'Authorization': `Bearer ${this.props.location.props.user.token}`
+        },
+        data: {
+          programReq: { title: this.state.programReq.title5, description: this.state.programReq.description5, isChecked: false, writingId: this.props.match.params.id },
+          writingId: this.props.match.params.id
+        }
+      })
+    }
+    if (this.state.programReq.description7 !== '') {
+      axios({
+        method: 'POST',
+        url: apiUrl + '/programReqs',
+        headers: {
+          'Authorization': `Bearer ${this.props.location.props.user.token}`
+        },
+        data: {
+          programReq: { title: this.state.programReq.title7, description: this.state.programReq.description7, isChecked: false, writingId: this.props.match.params.id },
+          writingId: this.props.match.params.id
+        }
+      })
+    }
+    if (this.state.programReq.description8 !== '') {
+      axios({
+        method: 'POST',
+        url: apiUrl + '/programReqs',
+        headers: {
+          'Authorization': `Bearer ${this.props.location.props.user.token}`
+        },
+        data: {
+          programReq: { title: this.state.programReq.title8, description: this.state.programReq.description8, isChecked: false, writingId: this.props.match.params.id },
+          writingId: this.props.match.params.id
+        }
+      })
+    }
+    if (this.state.programReq.description9 !== '') {
+      axios({
+        method: 'POST',
+        url: apiUrl + '/programReqs',
+        headers: {
+          'Authorization': `Bearer ${this.props.location.props.user.token}`
+        },
+        data: {
+          programReq: { title: this.state.programReq.title9, description: this.state.programReq.description9, isChecked: false, writingId: this.props.match.params.id },
+          writingId: this.props.match.params.id
+        }
+      })
+    }
+    if (this.state.programReq.description10 !== '') {
+      axios({
+        method: 'POST',
+        url: apiUrl + '/programReqs',
+        headers: {
+          'Authorization': `Bearer ${this.props.location.props.user.token}`
+        },
+        data: {
+          programReq: { title: this.state.programReq.title10, description: this.state.programReq.description10, isChecked: false, writingId: this.props.match.params.id },
+          writingId: this.props.match.params.id
+        }
+      })
+    }
+    if (this.state.programReq.description11 !== '') {
+      axios({
+        method: 'POST',
+        url: apiUrl + '/programReqs',
+        headers: {
+          'Authorization': `Bearer ${this.props.location.props.user.token}`
+        },
+        data: {
+          programReq: { title: this.state.programReq.title11, description: this.state.programReq.description11, isChecked: false, writingId: this.props.match.params.id },
+          writingId: this.props.match.params.id
+        }
+      })
+    }
     axios({
       method: 'PATCH',
       url: apiUrl + '/checklists/' + this.state.checklistId,
@@ -224,7 +244,9 @@ class Checklist extends React.Component {
         }
       }
     })
-      .then(this.setState({ isProcess: true }))
+      .then(this.setState({ loading: true }))
+      .then(setTimeout(() => { this.setState({ isProcess: true }) }, 1000))
+      // .then(this.setState({ isProcess: true }))
   }
 
   createChecklist = (event) => {

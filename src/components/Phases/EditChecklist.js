@@ -67,6 +67,7 @@ class EditChecklist extends React.Component {
         'Authorization': `Bearer ${this.props.user.token}`
       }
     })
+      // .then(response => console.log(response.data.writing))
       .then(response => {
         this.setState({
           programReqs: response.data.writing.checklist.programReq,
@@ -318,12 +319,12 @@ class EditChecklist extends React.Component {
             <ListGroup.Item key={req._id} title={req.title} description={req.description} >
               <Row>
                 <Col className={ req.isChecked ? 'strikethrough' : ''} lg={4}>
-                  {this.limit(req.title, 30)}
-                  {this.countTitle(req.title, 30, req)}
+                  {this.limit(req.title, 20)}
+                  {this.countTitle(req.title, 20, req)}
                 </Col>
                 <Col className={ req.isChecked ? 'strikethrough' : ''} lg={6}>
-                  {this.limit(req.description, 48)}
-                  {this.countDescription(req.description, 48, req)}
+                  {this.limit(req.description, 30)}
+                  {this.countDescription(req.description, 30, req)}
                 </Col>
                 <Col lg={2} className="d-flex align-items-center">
                   <OverlayTrigger delay={{ show: 250, hide: 400 }} placement="top" overlay={ (props) => (<Tooltip {...props} show={props.show.toString()}>Edit Requirement</Tooltip>) }>
@@ -350,12 +351,12 @@ class EditChecklist extends React.Component {
             <ListGroup.Item key={req._id}>
               <Row>
                 <Col className={ req.isChecked ? 'strikethrough' : ''} lg={4}>
-                  {this.limit(req.title, 30)}
-                  {this.countTitle(req.title, 30)}
+                  {this.limit(req.title, 20)}
+                  {this.countTitle(req.title, 20)}
                 </Col>
                 <Col className={ req.isChecked ? 'strikethrough' : ''} lg={6}>
-                  {this.limit(req.description, 48)}
-                  {this.countDescription(req.description, 48)}
+                  {this.limit(req.description, 30)}
+                  {this.countDescription(req.description, 30)}
                 </Col>
                 <Col lg={2} id={req._id} className="d-flex align-items-center">
                   <OverlayTrigger delay={{ show: 250, hide: 400 }} placement="top" overlay={ (props) => (<Tooltip {...props} show={props.show.toString()}>Edit Requirement</Tooltip>) }>

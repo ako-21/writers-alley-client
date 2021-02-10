@@ -123,10 +123,10 @@ class AddToChecklist extends React.Component {
             <ListGroup.Item key={req._id}>
               <Row>
                 <Col lg={4}>
-                  {this.limit(req.title, 30)}
+                  {this.limit(req.title, 10)}
                 </Col>
                 <Col lg={6}>
-                  {this.limit(req.description, 48)}
+                  {this.limit(req.description, 15)}
                 </Col>
                 <Col lg={2} onClick={this.deleteUserReq} id={req._id} className="d-flex align-items-center">
                   <TiDeleteOutline type="button" id={req._id} size={20}></TiDeleteOutline>
