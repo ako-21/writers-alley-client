@@ -8,9 +8,9 @@ import React from 'react'
 // import ListGroup from 'react-bootstrap/ListGroup'
 // import { FaCheck } from 'react-icons/fa'
 import Spinning from './../Spinner/Spinner3'
-import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
-import Tooltip from 'react-bootstrap/Tooltip'
-import { CSSTransition } from 'react-transition-group'
+// import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
+// import Tooltip from 'react-bootstrap/Tooltip'
+// import { CSSTransition } from 'react-transition-group'
 
 class CompleteChecklist extends React.Component {
   state = {
@@ -118,18 +118,14 @@ class CompleteChecklist extends React.Component {
           )
         } else {
           if (totalComplete === total) {
-            this.props.checklistComplete()
+            this.props.writingComplete()
             jsx = (
-              <div className="d-flex ml-2">&#10004;&nbsp;&nbsp;{total}/{total} Complete
-                <CSSTransition in={true} appear={true} timeout={3000} classNames="bottom">
-                  <OverlayTrigger delay={{ show: 250, hide: 400 }} placement="top" overlay={ (props) => (<Tooltip {...props} show={props.show.toString()}>Continue to Next</Tooltip>) }>
-                    <div className="ml-2" type="button">&#8594;</div>
-                  </OverlayTrigger>
-                </CSSTransition>
+              <div className="ml-2">
+                &#10004;&nbsp;&nbsp;{total}/{total} Complete
               </div>
             )
           } else {
-            this.props.checklistIncomplete()
+            this.props.writingIncomplete()
             jsx = (
               <div className="ml-2">
                 {totalComplete}/{total} Complete
@@ -151,12 +147,8 @@ class CompleteChecklist extends React.Component {
         } else {
           if (totalComplete === total) {
             jsx = (
-              <div className="d-flex ml-2">&#10004;&nbsp;&nbsp;{total}/{total} Complete
-                <CSSTransition in={true} appear={true} timeout={3000} classNames="bottom">
-                  <OverlayTrigger delay={{ show: 250, hide: 400 }} placement="top" overlay={ (props) => (<Tooltip {...props} show={props.show.toString()}>Continue to Next</Tooltip>) }>
-                    <div className="ml-2" type="button">&#8594;</div>
-                  </OverlayTrigger>
-                </CSSTransition>
+              <div className="ml-2">
+                &#10004;&nbsp;&nbsp;{total}/{total} Complete
               </div>
             )
           } else {

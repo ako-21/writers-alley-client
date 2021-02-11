@@ -281,6 +281,40 @@ class EditChecklist extends React.Component {
       .then(() => this.setState({ runningIf: 'false' }))
   }
 
+  writingComplete = () => {
+    axios({
+      method: 'PATCH',
+      url: apiUrl + '/writings/' + this.props.id,
+      headers: {
+        'Authorization': `Bearer ${this.props.user.token}`
+      },
+      data: {
+        writing: {
+          isComplete: true
+        }
+      }
+    })
+      .then(() => this.props.getWritingDetailChecklist())
+      .then(() => this.setState({ runningIf: 'false' }))
+  }
+
+  writingIncomplete = () => {
+    axios({
+      method: 'PATCH',
+      url: apiUrl + '/writings/' + this.props.id,
+      headers: {
+        'Authorization': `Bearer ${this.props.user.token}`
+      },
+      data: {
+        writing: {
+          isComplete: false
+        }
+      }
+    })
+      .then(() => this.props.getWritingDetailChecklist())
+      .then(() => this.setState({ runningIf: 'false' }))
+  }
+
   limit = (str, length) => {
     if (str.length <= length) {
       return str
@@ -377,9 +411,9 @@ class EditChecklist extends React.Component {
       <div>
         <div className="d-flex justify-content-center">
           {heading}
-          <div className="d-flex align-items-center">
-            <CompleteChecklist checklistComplete={this.checklistComplete} checklistIncomplete={this.checklistIncomplete} runningIf={this.state.runningIf} getWritingDetailChecklist={this.props.getWritingDetailChecklist} writingId={this.props.id} userToken={this.props.user.token} {...this.state}></CompleteChecklist>
-          </div>
+        </div>
+        <div className="d-flex justify-content-center">
+          <CompleteChecklist writingComplete={this.writingComplete} writingIncomplete={this.writingIncomplete} runningIf={this.state.runningIf} getWritingDetailChecklist={this.props.getWritingDetailChecklist} writingId={this.props.id} userToken={this.props.user.token} {...this.state}></CompleteChecklist>
         </div>
         <Button className="mb-4" variant="outline-dark" onClick={() => this.setState({ createModal: true })}>Add Requirement</Button>
         {userReqList}

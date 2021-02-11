@@ -237,13 +237,14 @@ class Checklist extends React.Component {
       data: {
         checklist: {
           isStarted: true,
-          isComplete: false,
+          isComplete: true,
           isProcess: true,
           writingId: this.props.match.params.id,
           checklistId: this.state.checklistId
         }
       }
     })
+      .then(() => this.props.getWritingDetailChecklist())
       .then(this.setState({ loading: true }))
       .then(setTimeout(() => { this.setState({ isProcess: true }) }, 1000))
       // .then(this.setState({ isProcess: true }))

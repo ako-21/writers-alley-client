@@ -26,7 +26,8 @@ class WritingDetail extends React.Component {
       id: ''
     },
     writing: {
-      title: ''
+      title: '',
+      isComplete: ''
     },
     added: false,
     showNWM: false,
@@ -50,8 +51,8 @@ class WritingDetail extends React.Component {
       }
     })
       .then(res => this.setState({
-        checklist: {
-          isComplete: res.data.writing.checklist.isComplete
+        writing: {
+          isComplete: res.data.writing.isComplete
         }
       }))
   }
