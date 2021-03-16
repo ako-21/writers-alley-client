@@ -342,6 +342,12 @@ class EditChecklist extends React.Component {
   }
 
   render () {
+    let nextPhaseButton
+    if (this.props.nextPhaseButton === true) {
+      nextPhaseButton = (<Button className="mb-4 ml-2" variant='dark' onClick={this.props.prewritingPhase}>Next Phase&nbsp;&#8594;</Button>)
+    } else {
+      nextPhaseButton = (<div></div>)
+    }
     const heading = <h2 style={{ textAlign: 'center' }}>Phase 1: Checklist</h2>
     let userReqList
     if (this.state.userReqs === null) {
@@ -416,6 +422,7 @@ class EditChecklist extends React.Component {
           <CompleteChecklist writingComplete={this.writingComplete} writingIncomplete={this.writingIncomplete} runningIf={this.state.runningIf} getWritingDetailChecklist={this.props.getWritingDetailChecklist} writingId={this.props.id} userToken={this.props.user.token} {...this.state}></CompleteChecklist>
         </div>
         <Button className="mb-4" variant="outline-dark" onClick={() => this.setState({ createModal: true })}>Add Requirement</Button>
+        {nextPhaseButton}
         {userReqList}
         {programReqList}
         <Modal show={this.state.createModal} onHide={() => this.setState({ createModal: false })}>

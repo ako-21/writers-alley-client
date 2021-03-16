@@ -18,6 +18,7 @@ import Spinner2 from './../Spinner/Spinner2'
 
 class Checklist extends React.Component {
   state = {
+    nextPhaseButton: '',
     loading: true,
     isStarted: null,
     isComplete: false,
@@ -247,11 +248,23 @@ class Checklist extends React.Component {
       .then(() => this.props.getWritingDetailChecklist())
       .then(this.setState({ loading: true }))
       .then(setTimeout(() => { this.setState({ isProcess: true }) }, 1000))
-      // .then(this.setState({ isProcess: true }))
+      .then(this.setState({ nextPhaseButton: true }))
   }
 
   createChecklist = (event) => {
     event.preventDefault()
+    axios({
+      method: 'PATCH',
+      url: apiUrl + '/writings/' + this.props.match.params.id,
+      headers: {
+        'Authorization': `Bearer ${this.props.location.props.user.token}`
+      },
+      data: {
+        writing: {
+          phase: 'checklist'
+        }
+      }
+    })
     axios({
       method: 'POST',
       url: apiUrl + '/checklists',
@@ -260,14 +273,15 @@ class Checklist extends React.Component {
       },
       data: {
         checklist: {
-          isStarted: true,
+          isStarted: false,
           isComplete: false,
           isProcess: false,
           writingId: this.props.match.params.id
         }
       }
     })
-      .then(() => this.getChecklist())
+    // .then(() => this.getChecklist())
+      .then(() => this.setState({ isStarted: true }))
   }
   getChecklist = (event) => {
     axios({
@@ -326,7 +340,7 @@ class Checklist extends React.Component {
       jsx = (
         <React.Fragment>
           { /* <Button onClick={this.getChecklist2}>Get</Button><Button onClick={this.deleteChecklist}>Delete</Button> */ }
-          <EditChecklist getWritingDetailChecklist={this.props.getWritingDetailChecklist} user={this.props.location.props.user} id={this.props.match.params.id} checklistId={this.state.checklistId}></EditChecklist>
+          <EditChecklist {...this.state} prewritingPhase={this.props.prewritingPhase} getWritingDetailChecklist={this.props.getWritingDetailChecklist} user={this.props.location.props.user} id={this.props.match.params.id} checklistId={this.state.checklistId}></EditChecklist>
         </React.Fragment>
       )
     } else if (this.state.loading === true) {

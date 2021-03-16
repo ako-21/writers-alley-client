@@ -50,11 +50,7 @@ class UserHome extends React.Component {
   }
 
   handleInputChange = (event) => {
-    const writingKey = event.target.name
-    const value = event.target.value
-    const writingCopy = Object.assign({}, this.state.title)
-    writingCopy[writingKey] = value
-    this.setState({ writing: writingCopy })
+    this.setState({ writing: { title: event.target.value } })
   }
 
   handleSubmit = (event) => {
@@ -72,6 +68,7 @@ class UserHome extends React.Component {
       data: {
         writing: {
           title: this.state.writing.title,
+          phase: 'none',
           isComplete: false
         }
       }

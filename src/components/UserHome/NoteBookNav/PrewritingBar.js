@@ -3,7 +3,7 @@ import React from 'react'
 // import apiUrl from './../../../apiConfig'
 import WelcomeCheck from './CheckBoxes/WelcomeCheck'
 
-class ChecklistBar extends React.Component {
+class PrewritingBar extends React.Component {
   // state = {
   //   isChecked: ''
   // }
@@ -21,11 +21,11 @@ class ChecklistBar extends React.Component {
     let jsx
     if (this.props.isComplete === true) {
       jsx = (
-        <div type="button" data-name="checklist" onClick={this.props.clickChangePhase}>Checklist&nbsp;<WelcomeCheck></WelcomeCheck></div>
+        <div type="button" data-name="prewriting" onClick={this.props.clickChangePhase}>PreWriting&nbsp;<WelcomeCheck></WelcomeCheck></div>
       )
     } else {
       jsx = (
-        <div type="button" data-name="checklist" onClick={this.props.clickChangePhase}>Checklist</div>
+        <div type="button" data-name="prewriting" onClick={this.props.clickChangePhase}>PreWriting</div>
       )
     }
     return (
@@ -36,4 +36,4 @@ class ChecklistBar extends React.Component {
   }
 }
 
-export default ChecklistBar
+export default PrewritingBar

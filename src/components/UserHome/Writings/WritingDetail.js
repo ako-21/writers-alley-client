@@ -27,12 +27,34 @@ class WritingDetail extends React.Component {
     },
     writing: {
       title: '',
-      isComplete: ''
+      isComplete: '',
+      phase: ''
     },
     added: false,
     showNWM: false,
     writings: ''
   }
+
+  prewritingPhase = () => {
+    axios({
+      url: `${apiUrl}/writings/` + this.props.match.params.id,
+      method: 'PATCH',
+      headers: {
+        'Authorization': `Bearer ${this.props.user.token}`
+      },
+      data: {
+        writing: {
+          phase: 'prewriting'
+        }
+      }
+    })
+      .then(() => this.setState({ writing: { phase: 'prewriting', title: this.state.writing.title } }))
+  }
+
+  clickChangePhase = (event) => {
+    this.setState({ writing: { phase: event.target.dataset.name, title: this.state.writing.title } })
+  }
+
   getRequest = () => {
     axios({
       url: `${apiUrl}/writings`,
@@ -51,8 +73,8 @@ class WritingDetail extends React.Component {
       }
     })
       .then(res => this.setState({
-        writing: {
-          isComplete: res.data.writing.isComplete
+        checklist: {
+          isComplete: res.data.writing.checklist.isComplete
         }
       }))
   }
@@ -89,19 +111,19 @@ class WritingDetail extends React.Component {
   }
 
   handleInputChange = (event) => {
-    const writingKey = event.target.name
-    const value = event.target.value
-    const writingCopy = Object.assign({}, this.state.title)
-    writingCopy[writingKey] = value
-    this.setState({ writing: writingCopy })
+    // const writingKey = event.target.name
+    // const value = event.target.value
+    // const writingCopy = Object.assign({}, this.state.title)
+    // writingCopy[writingKey] = value
+    this.setState({ title: event.target.value })
   }
 
   handleSubmit = (event) => {
     event.preventDefault()
-    this.setState({ writing: {
+    this.setState({
       title: ''
     }
-    })
+    )
     axios({
       method: 'POST',
       url: apiUrl + '/writings',
@@ -110,8 +132,9 @@ class WritingDetail extends React.Component {
       },
       data: {
         writing: {
-          title: this.state.writing.title,
-          isComplete: false
+          title: this.state.title,
+          isComplete: false,
+          phase: 'none'
         }
       }
     })
@@ -144,13 +167,17 @@ class WritingDetail extends React.Component {
     })
       .then(res => {
         if (res.data.writing.checklist) {
-          this.setState({ title: res.data.writing.title,
+          this.setState({
+            writing: {
+              phase: res.data.writing.phase,
+              title: res.data.writing.title
+            },
             checklist: {
               isComplete: res.data.writing.checklist.isComplete,
               id: res.data.writing.checklist._id
             } })
         } else {
-          this.setState({ title: res.data.writing.title })
+          this.setState({ writing: { title: res.data.writing.title, phase: res.data.writing.phase } })
         }
       }
       )
@@ -179,6 +206,12 @@ class WritingDetail extends React.Component {
         <AiFillDelete size={28} type="button" onMouseEnter={this.hoverButton} onMouseLeave={this.hoverButton} onClick={this.openDeleteModal}></AiFillDelete>
       </OverlayTrigger>
     }
+    let phase
+    if (this.state.writing.phase === 'checklist' || this.state.writing.phase === 'none') {
+      phase = <Checklist prewritingPhase={this.prewritingPhase} getWritingDetailChecklist={this.getWritingDetailChecklist}></Checklist>
+    } else if (this.state.writing.phase === 'prewriting') {
+      phase = <div>prewriting</div>
+    }
     return (
       <Container fluid className="mt-2">
         <Row>
@@ -188,20 +221,20 @@ class WritingDetail extends React.Component {
               <WritingDropDown added={this.state.added} user={this.props.user}></WritingDropDown>
             </Col>
             <Col lg={8}>
-              <NoteBookNav {...this.state} userToken={this.props.user.token} writingId={this.props.match.params.id}></NoteBookNav>
+              <NoteBookNav {...this.state} clickChangePhase={this.clickChangePhase} userToken={this.props.user.token} writingId={this.props.match.params.id}></NoteBookNav>
             </Col>
           </Col>
           <Col lg={8}>
             <div style={{ marginTop: '4rem' }} className="d-flex flex-row">
               <div>
-                <h1 className="mr-2">{this.limit(this.state.title, 30)}</h1>
+                <h1 className="mr-2">{this.limit(this.state.writing.title, 30)}</h1>
               </div>
               <div className="d-flex align-items-center">
                 {trashButton}
               </div>
             </div>
             <div className="mt-3">
-              <Checklist getWritingDetailChecklist={this.getWritingDetailChecklist}></Checklist>
+              {phase}
             </div>
           </Col>
         </Row>
