@@ -14,6 +14,7 @@ import { AiOutlineDelete, AiFillDelete } from 'react-icons/ai'
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
 import Checklist from './../../Phases/Checklist'
+import Prewriting from './../../Phases/Prewriting'
 import NewWritingModal from './../NewWritingModal'
 
 class WritingDetail extends React.Component {
@@ -35,7 +36,8 @@ class WritingDetail extends React.Component {
     writings: ''
   }
 
-  prewritingPhase = () => {
+  nextPhase = () => {
+    const e = event.target.dataset.name
     axios({
       url: `${apiUrl}/writings/` + this.props.match.params.id,
       method: 'PATCH',
@@ -44,11 +46,11 @@ class WritingDetail extends React.Component {
       },
       data: {
         writing: {
-          phase: 'prewriting'
+          phase: e
         }
       }
     })
-      .then(() => this.setState({ writing: { phase: 'prewriting', title: this.state.writing.title } }))
+      .then(() => this.setState({ writing: { phase: e, title: this.state.writing.title } }))
   }
 
   clickChangePhase = (event) => {
@@ -208,9 +210,9 @@ class WritingDetail extends React.Component {
     }
     let phase
     if (this.state.writing.phase === 'checklist' || this.state.writing.phase === 'none') {
-      phase = <Checklist prewritingPhase={this.prewritingPhase} getWritingDetailChecklist={this.getWritingDetailChecklist}></Checklist>
+      phase = <Checklist nextPhase={this.nextPhase} getWritingDetailChecklist={this.getWritingDetailChecklist}></Checklist>
     } else if (this.state.writing.phase === 'prewriting') {
-      phase = <div>prewriting</div>
+      phase = <Prewriting nextPhase={this.nextPhase} getWritingDetailChecklist={this.getWritingDetailChecklist}></Prewriting>
     }
     return (
       <Container fluid className="mt-2">

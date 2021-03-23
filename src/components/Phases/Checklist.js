@@ -340,7 +340,7 @@ class Checklist extends React.Component {
       jsx = (
         <React.Fragment>
           { /* <Button onClick={this.getChecklist2}>Get</Button><Button onClick={this.deleteChecklist}>Delete</Button> */ }
-          <EditChecklist {...this.state} prewritingPhase={this.props.prewritingPhase} getWritingDetailChecklist={this.props.getWritingDetailChecklist} user={this.props.location.props.user} id={this.props.match.params.id} checklistId={this.state.checklistId}></EditChecklist>
+          <EditChecklist {...this.state} nextPhase={this.props.nextPhase} getWritingDetailChecklist={this.props.getWritingDetailChecklist} user={this.props.location.props.user} id={this.props.match.params.id} checklistId={this.state.checklistId}></EditChecklist>
         </React.Fragment>
       )
     } else if (this.state.loading === true) {

@@ -344,7 +344,7 @@ class EditChecklist extends React.Component {
   render () {
     let nextPhaseButton
     if (this.props.nextPhaseButton === true) {
-      nextPhaseButton = (<Button className="mb-4 ml-2" variant='dark' onClick={this.props.prewritingPhase}>Next Phase&nbsp;&#8594;</Button>)
+      nextPhaseButton = (<Button className="mb-4 ml-2" variant='dark' data-name="prewriting" onClick={this.props.nextPhase}>Next Phase&nbsp;&#8594;</Button>)
     } else {
       nextPhaseButton = (<div></div>)
     }
