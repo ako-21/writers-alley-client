@@ -15,13 +15,19 @@ import Button from 'react-bootstrap/Button'
 // import ExampleImage from './../../../images/brainstorming-1.jpg'
 import BrainstormingIdeaAdd from './BrainstormingIdeaAdd'
 import Pagination from 'react-bootstrap/Pagination'
+import Modal from 'react-bootstrap/Modal'
 
 class BrainstormingTopicAdd extends React.Component {
   state = {
     topics: [],
     topic: {
       name: ''
-    }
+    },
+    modal: false
+  }
+
+  closeModal= () => {
+    this.setState({ modal: false })
   }
 
   handleInputChange = (event) => {
@@ -34,6 +40,17 @@ class BrainstormingTopicAdd extends React.Component {
     this.setState({ topic: { name: '' } })
     this.setState({ topics: [...this.state.topics, this.state.topic.name] })
   }
+
+  newTopic = (event) => {
+    event.preventDefault()
+    const currentArray = this.state.topics
+    if (currentArray.every((index) => index !== event.target.id)) {
+      this.setState({ topics: [...this.state.topics, event.target.id] })
+    } else {
+      return false
+    }
+  }
+
   render () {
     let jsx
     if (this.state.topics.length >= 1) {
@@ -41,6 +58,9 @@ class BrainstormingTopicAdd extends React.Component {
       <div>
         <div className="d-flex justify-content-center">
           <Col lg={12}>
+            <span onClick={() => this.setState({ modal: true })}>
+            +
+            </span>
             <Pagination size="sm" className="pagnation">
               {this.state.topics.map(topic => (
                 <Pagination.Item key={topic}>
@@ -49,7 +69,7 @@ class BrainstormingTopicAdd extends React.Component {
               ))}
             </Pagination>
             <p style={{ textAlign: 'center' }}>Add some ideas to your topic below.</p>
-            <BrainstormingIdeaAdd></BrainstormingIdeaAdd>
+            <BrainstormingIdeaAdd newTopic={this.newTopic}></BrainstormingIdeaAdd>
           </Col>
         </div>
       </div>
@@ -65,6 +85,7 @@ class BrainstormingTopicAdd extends React.Component {
                 value={this.state.topic.name}
                 name="topic"
                 as="input"
+                required
                 placeholder="Enter Topic" />
             </Col>
             <Col className="col-2">
@@ -77,6 +98,27 @@ class BrainstormingTopicAdd extends React.Component {
     return (
       <div>
         {jsx}
+        <Modal show={this.state.modal} onHide={this.closeModal}>
+          <Modal.Header closeButton>
+            <Modal.Title>Add a Topic</Modal.Title>
+          </Modal.Header>
+          <Form onSubmit={this.handleSubmit}>
+            <Form.Row className="mt-1 col-12">
+              <Col className="col-10">
+                <Form.Control
+                  onChange={this.handleInputChange}
+                  value={this.state.topic.name}
+                  name="topic"
+                  as="input"
+                  required
+                  placeholder="Enter Topic" />
+              </Col>
+              <Col className="col-2">
+                <Button type="submit" variant="dark" size="small">Add</Button>
+              </Col>
+            </Form.Row>
+          </Form>
+        </Modal>
       </div>
     )
   }
