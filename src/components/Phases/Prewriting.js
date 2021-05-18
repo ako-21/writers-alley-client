@@ -189,7 +189,7 @@ class Prewriting extends React.Component {
                     </Card.Body>
                   </Accordion.Collapse>
                 </Card>
-                <Card style= {{ borderColor: 'black' }}>
+                <Card className="clustering-card" style= {{ borderColor: 'black' }}>
                   <Accordion.Toggle as={Card.Header} variant="link" eventKey="1">
                     <p style= {{ textAlign: 'center' }}>
                     Clustering

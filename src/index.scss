@@ -47,6 +47,11 @@ $theme-colors: (
   max-height: 35vh;
   overflow-y: scroll;
 }
+
+.reactFlow {
+  overflow-x: scroll;
+}
+
 .keyList {
   height: 8vw;
   width: 8vw;
@@ -64,6 +69,10 @@ $theme-colors: (
 .keycolors {
   overflow-x: scroll;
   height: 6vh;
+}
+
+.clusternavactive {
+  background-color: #343a40;
 }
 
 .strikethrough {
@@ -153,6 +162,8 @@ $theme-colors: (
 .no-click-svg {
   pointer-events: none;
 }
+
+
 
 @keyframes bounce-in {
   0% {

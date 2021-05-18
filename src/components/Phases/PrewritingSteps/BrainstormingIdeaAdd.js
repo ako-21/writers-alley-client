@@ -23,7 +23,8 @@ class BrainstormingIdeaAdd extends React.Component {
   state = {
     ideas: [],
     idea: {
-      name: ''
+      name: '',
+      topicName: ''
     },
     keys: [],
     key: {
@@ -36,13 +37,13 @@ class BrainstormingIdeaAdd extends React.Component {
 
   handleInputChange = (event) => {
     const userInput = event.target.value
-    this.setState({ idea: { name: userInput } })
+    this.setState({ idea: { name: userInput, topicName: this.props.activeItem } })
   }
 
   handleSubmit = (event) => {
     event.preventDefault()
-    this.setState({ idea: { name: '' } })
-    this.setState({ ideas: [...this.state.ideas, this.state.idea.name] })
+    this.setState({ idea: { name: '', topicName: '' } })
+    this.setState({ ideas: [...this.state.ideas, this.state.idea] })
   }
 
   handleInputChangeKey = (event) => {
@@ -76,6 +77,7 @@ class BrainstormingIdeaAdd extends React.Component {
     document.getElementById(id).style.color = color
   }
   render () {
+    const ideaArray = this.state.ideas.filter(idea => idea.topicName === this.props.activeItem)
     return (
       <div>
         <Container fluid>
@@ -85,19 +87,19 @@ class BrainstormingIdeaAdd extends React.Component {
             </Col>
             <Col lg={9}>
               <ListGroup className="overflowList1" variant="flush">
-                {this.state.ideas.map(idea => (
-                  <ListGroup.Item key={idea}>
+                {ideaArray.map(idea => (
+                  <ListGroup.Item key={idea.name}>
                     <Row>
                       <Col lg={8}>
-                        <div id={idea} data-id={idea} type="button" onClick={this.props.newTopic}>
-                          {idea} &nbsp;
+                        <div id={idea.name} data-id={idea.name} type="button" onClick={this.props.newTopic}>
+                          {idea.name} &nbsp;
                           <OverlayTrigger className="ideatip" delay={{ show: 150, hide: 400 }} placement="right" overlay={ (props) => (<Tooltip className="ideatip" {...props} show={props.show.toString()}>New Topic</Tooltip>) }>
                             <RiChatNewLine data-id={idea} className="mt-1 no-click-svg" size={10}></RiChatNewLine>
                           </OverlayTrigger>
                         </div>
                       </Col>
                       <Col lg={4}>
-                        <BrainstormingKeyColors aidea={idea} changeColor={this.changeColor} {...this.state}></BrainstormingKeyColors>
+                        <BrainstormingKeyColors aidea={idea.name} changeColor={this.changeColor} {...this.state}></BrainstormingKeyColors>
                       </Col>
                     </Row>
                   </ListGroup.Item>

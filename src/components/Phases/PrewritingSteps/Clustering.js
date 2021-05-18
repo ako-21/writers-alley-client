@@ -13,6 +13,7 @@ import Button from 'react-bootstrap/Button'
 import { BsArrowRight, BsArrowLeft } from 'react-icons/bs'
 import Figure from 'react-bootstrap/Figure'
 import ExampleImage from './../../../images/clustering-1.jpg'
+import ClusteringGrid from './ClusteringGrid'
 
 class Clustering extends React.Component {
   state = {
@@ -77,7 +78,7 @@ class Clustering extends React.Component {
         </div>
       </div>
     } else if (this.props.clustering.pagnation === 'worksheet') {
-      jsx = <div>worksheet</div>
+      jsx = <ClusteringGrid></ClusteringGrid>
     }
     return (
       <div>{jsx}</div>

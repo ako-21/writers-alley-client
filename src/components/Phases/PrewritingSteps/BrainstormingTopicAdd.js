@@ -10,7 +10,7 @@ import Button from 'react-bootstrap/Button'
 // import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
 // import Tooltip from 'react-bootstrap/Tooltip'
 // import Button from 'react-bootstrap/Button'
-// import { BsArrowRight, BsArrowLeft } from 'react-icons/bs'
+import { GrAddCircle } from 'react-icons/gr'
 // import Figure from 'react-bootstrap/Figure'
 // import ExampleImage from './../../../images/brainstorming-1.jpg'
 import BrainstormingIdeaAdd from './BrainstormingIdeaAdd'
@@ -23,7 +23,8 @@ class BrainstormingTopicAdd extends React.Component {
     topic: {
       name: ''
     },
-    modal: false
+    modal: false,
+    activeItem: ''
   }
 
   closeModal= () => {
@@ -37,8 +38,14 @@ class BrainstormingTopicAdd extends React.Component {
 
   handleSubmit = (event) => {
     event.preventDefault()
-    this.setState({ topic: { name: '' } })
-    this.setState({ topics: [...this.state.topics, this.state.topic.name] })
+    this.setState({ topic: { name: '' }, modal: false })
+    const currentArray = this.state.topics
+    if (currentArray.every((index) => index !== this.state.topic.name)) {
+      this.setState({ topics: [...this.state.topics, this.state.topic.name] })
+      this.setState({ activeItem: this.state.topic.name })
+    } else {
+      return false
+    }
   }
 
   newTopic = (event) => {
@@ -51,25 +58,40 @@ class BrainstormingTopicAdd extends React.Component {
     }
   }
 
+  activeItem = (event) => {
+    const activeItem = event.target.dataset.name
+    this.setState({ activeItem: activeItem })
+  }
+
+  limit = (str, length) => {
+    if (str.length <= length) {
+      return str
+    } else {
+      return str.substring(0, length) + '...'
+    }
+  }
+
   render () {
     let jsx
     if (this.state.topics.length >= 1) {
+      // const topicArray = this.state.topics
+      // topicArray.
       jsx =
       <div>
         <div className="d-flex justify-content-center">
           <Col lg={12}>
-            <span onClick={() => this.setState({ modal: true })}>
-            +
-            </span>
-            <Pagination size="sm" className="pagnation">
+            <Pagination size="sm" className="pagnation" style={{ 'maxWidth': '100%', 'overflow-x': 'scroll', 'white-space': 'nowrap' }}>
+              <Pagination.Item onClick={() => this.setState({ modal: true })}>
+                <GrAddCircle></GrAddCircle>
+              </Pagination.Item>
               {this.state.topics.map(topic => (
-                <Pagination.Item key={topic}>
-                  {topic}
+                <Pagination.Item data-name={topic} className="pagnation" onClick={this.activeItem} active={this.state.activeItem === topic} key={topic}>
+                  {this.limit(topic, 10)}
                 </Pagination.Item>
               ))}
             </Pagination>
             <p style={{ textAlign: 'center' }}>Add some ideas to your topic below.</p>
-            <BrainstormingIdeaAdd newTopic={this.newTopic}></BrainstormingIdeaAdd>
+            <BrainstormingIdeaAdd {...this.state} newTopic={this.newTopic}></BrainstormingIdeaAdd>
           </Col>
         </div>
       </div>
@@ -102,22 +124,24 @@ class BrainstormingTopicAdd extends React.Component {
           <Modal.Header closeButton>
             <Modal.Title>Add a Topic</Modal.Title>
           </Modal.Header>
-          <Form onSubmit={this.handleSubmit}>
-            <Form.Row className="mt-1 col-12">
-              <Col className="col-10">
-                <Form.Control
-                  onChange={this.handleInputChange}
-                  value={this.state.topic.name}
-                  name="topic"
-                  as="input"
-                  required
-                  placeholder="Enter Topic" />
-              </Col>
-              <Col className="col-2">
-                <Button type="submit" variant="dark" size="small">Add</Button>
-              </Col>
-            </Form.Row>
-          </Form>
+          <Modal.Body>
+            <Form onSubmit={this.handleSubmit}>
+              <Form.Row className="mt-2 mb-2 col-12">
+                <Col className="col-10">
+                  <Form.Control
+                    onChange={this.handleInputChange}
+                    value={this.state.topic.name}
+                    name="topic"
+                    as="input"
+                    required
+                    placeholder="Enter Topic" />
+                </Col>
+                <Col className="col-2">
+                  <Button type="submit" variant="dark" size="small">Add</Button>
+                </Col>
+              </Form.Row>
+            </Form>
+          </Modal.Body>
         </Modal>
       </div>
     )
