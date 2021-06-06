@@ -27,20 +27,6 @@ class ClusteringGrid extends React.Component {
     this.showModal = this.showModal.bind(this)
     this.hideModal = this.hideModal.bind(this)
   }
-
-  // componentDidMount () {
-  //   // console.log(document.querySelector('.accordion').offsetWidth)
-  //   // console.log(document.querySelector('#root').offsetWidth)
-  //   console.log(document.querySelector('.clustering-card').offsetWidth + 'cardwidth')
-  //   console.log(document.querySelector('.clustering-card').offsetWidth + 'cardheight')
-  //   console.log($('.cluster-form').offset(), 'formoffset')
-  //   console.log($('.cluster-add').offset(), 'addbuttonoffset')
-  //   const form = (document.querySelector('.cluster-form').getBoundingClientRect())
-  //   const button = (document.querySelector('.cluster-add').getBoundingClientRect())
-  //   console.log(form, 'form')
-  //   console.log(button, 'button')
-  // }
-
   navBarData () {
     return this.state.clusterData.map((x) => x.topic)
   }

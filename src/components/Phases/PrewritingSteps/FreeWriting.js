@@ -14,7 +14,7 @@ import { BsArrowRight, BsArrowLeft } from 'react-icons/bs'
 import Figure from 'react-bootstrap/Figure'
 import ExampleImage1 from './../../../images/freewriting-1.jpg'
 import ExampleImage2 from './../../../images/freewriting-2.jpg'
-import FreeWritingEditor from './FreeWritingEditor'
+import FreeWritingEditorContainer from './FreeWritingEditorContainer'
 
 class FreeWriting extends React.Component {
   state = {
@@ -125,7 +125,7 @@ class FreeWriting extends React.Component {
         </div>
       }
     } else if (this.props.freeWriting.pagnation === 'worksheet') {
-      jsx = <FreeWritingEditor></FreeWritingEditor>
+      jsx = <FreeWritingEditorContainer></FreeWritingEditorContainer>
     }
     return (
       <div>{jsx}</div>
